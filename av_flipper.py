@@ -173,11 +173,17 @@ class AudioVideoFlipper:
         self.running = False
         self.args = args
 
-    def confirm_exit(self, event):
-        response = messagebox.askyesno(
-            "Stop Flipper", "Do you wish to stop the audio-video flipper?")
+    def confirm_exit(self, event=None):
+        # Temporarily disable the topmost attribute to ensure the messagebox is accessible
+        self.flipper_window.attributes("-topmost", False)
+
+        response = messagebox.askyesno("Stop Flipper", "Do you wish to stop the audio-video flipper?")
+
         if response:
             self.stop_flipping()
+        else:
+            # Re-enable the topmost attribute if the user cancels the exit
+            self.flipper_window.attributes("-topmost", True)
 
     def set_system_volume(self, volume):
         # volume is between 0.0 and 100.0
@@ -294,8 +300,8 @@ class AudioVideoFlipper:
 
         self.flipper_window = Toplevel(self.root)
         # Uncomment or adjust the following lines as needed for your application
-        # self.flipper_window.overrideredirect(True)
-        # self.flipper_window.attributes("-topmost", True)
+        self.flipper_window.overrideredirect(True)
+        self.flipper_window.attributes("-topmost", True)
 
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
