@@ -180,19 +180,25 @@ class AudioVideoFlipper:
             self.stop_flipping()
 
     def set_system_volume(self, volume):
-        # volume is 0.0 to 1.0
+        # volume is between 0.0 and 100.0
+        
         system_name = platform.system()
         if system_name == "Windows":
-            subprocess.call(
-                ["nircmd.exe", "setsysvolume", str(volume)])
+            # For Windows, using nircmd.exe, scale volume from 0-100 to 0-65535
+            volume_scaled = int((65535 * volume) / 100)
+            subprocess.call(["nircmd.exe", "setsysvolume", str(volume_scaled)])
+            
         elif system_name == "Darwin":  # macOS
-            subprocess.call(
-                ["osascript", "-e", f"set volume output volume {volume}"])
+            # For macOS, volume can be set directly in the 0-100 range
+            subprocess.call(["osascript", "-e", f"set volume output volume {volume}"])
+            
         elif system_name == "Linux":
-            subprocess.call(
-                ["amixer", "-D", "pulse", "sset", "Master", f"{volume}%"])
+            # For Linux, the amixer command also expects volume in the 0-100 range
+            subprocess.call(["amixer", "-D", "pulse", "sset", "Master", f"{volume}%"])
+            
         else:
             print("Unsupported operating system for volume control")
+
 
     def toggle_flipping(self):
         if self.running:
@@ -241,6 +247,8 @@ class AudioVideoFlipper:
         # Set system volume and transparency for the current configuration
         self.set_system_volume(volume)
         self.set_transparency(opacity)
+
+        # Update the image for each configuration
         self.update_image()
 
         # Increment index for next configuration in the set
@@ -248,6 +256,7 @@ class AudioVideoFlipper:
 
         # Schedule the next run
         self.root.after(int(hold_length * 1000), self.run_flipping)
+
 
     def update_image(self):
         screen_width = self.root.winfo_screenwidth()
@@ -283,8 +292,8 @@ class AudioVideoFlipper:
         self.root.attributes("-alpha", 1)
 
         self.flipper_window = Toplevel(self.root)
-        self.flipper_window.overrideredirect(True)
-        self.flipper_window.attributes("-topmost", True)
+        #self.flipper_window.overrideredirect(True)
+        #self.flipper_window.attributes("-topmost", True)
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
         self.flipper_window.geometry(f"{screen_width}x{screen_height}+0+0")

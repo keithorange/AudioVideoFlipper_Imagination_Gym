@@ -31,7 +31,7 @@ def create_labeled_frame(container, text, variable):
     cb.pack(side='left')
     scale = tk.Scale(frame, from_=0, to_=100, orient='horizontal',
                      bg=BG_COLOR, fg=FG_COLOR, troughcolor=TR_COLOR)
-    scale.set(60)
+    scale.set(95)
     scale.pack(fill='x', expand=True)
     return frame, scale
 
@@ -42,8 +42,8 @@ def create_labeled_frame(container, text, variable):
 
 
 def get_flipper_script_args_from_ui(audition_scale, visualization_scale, max_volume_scale, difficulty_scale, adv_settings, overlay_option_var):
-    audio_full_on_chance = audition_scale.get()
-    video_full_on_chance = visualization_scale.get()
+    audio_full_on_chance = 100 - audition_scale.get()
+    video_full_on_chance = 100 - visualization_scale.get()
     max_volume = max_volume_scale.get()
     cognitive_load = difficulty_scale.get()
     flip_audio = adv_settings.get()
@@ -160,7 +160,7 @@ max_volume_label.pack(side='left', fill='x', expand=True)
 
 max_volume = tk.Scale(volume_frame, from_=0, to_=100, orient='horizontal',
                       bg=BG_COLOR, fg=FG_COLOR, troughcolor=TR_COLOR)
-max_volume.set(100)  # Default value
+max_volume.set(95)  # Default value
 max_volume.pack(side='left', fill='x', expand=True)
 
 # Function to create the Start Session button
