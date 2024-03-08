@@ -282,8 +282,9 @@ class AudioVideoFlipper:
         label.pack(fill='both', expand=True)
 
     def set_transparency(self, opacity):
-        self.flipper_window.attributes(
-            "-alpha", opacity if not self.args.opaque_overlay else 1.0)
+        # Ensure opacity is never exactly 0 to prevent click-through
+        safe_opacity = max(0.01, opacity)  # Using 0.01 as a minimum opacity
+        self.flipper_window.attributes("-alpha", safe_opacity if not self.args.opaque_overlay else 1.0)
 
     def open_flipper_window(self):
         if self.flipper_window:
@@ -292,19 +293,21 @@ class AudioVideoFlipper:
         self.root.attributes("-alpha", 1)
 
         self.flipper_window = Toplevel(self.root)
-        #self.flipper_window.overrideredirect(True)
-        #self.flipper_window.attributes("-topmost", True)
+        # Uncomment or adjust the following lines as needed for your application
+        # self.flipper_window.overrideredirect(True)
+        # self.flipper_window.attributes("-topmost", True)
+
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
         self.flipper_window.geometry(f"{screen_width}x{screen_height}+0+0")
 
         self.update_image()
-        # Assuming initial_opacity is defined elsewhere
-        self.initial_opacity = 0.88
+
+        # Set initial transparency
+        self.initial_opacity = 0.88  # Adjust as needed
         self.set_transparency(self.initial_opacity)
 
         self.flipper_window.bind("<Button-1>", self.confirm_exit)
-
 
 if __name__ == '__main__':
 
