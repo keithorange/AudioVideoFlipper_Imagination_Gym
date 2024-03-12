@@ -31,7 +31,8 @@ class FlipperScriptArgs:
         self.black_overlay = black_overlay
 
     def __str__(self):
-        return (f"🔊 Audio Full On Chance: {self.audio_full_on_chance}\n"
+        return (f"Arguments:\n"
+                f"🔊 Audio Full On Chance: {self.audio_full_on_chance}\n"
                 f"🎞️ Video Full On Chance: {self.video_full_on_chance}\n"
                 f"🔉 Max Volume: {self.max_volume}\n"
                 f"🧠 Cognitive Load: {self.cognitive_load}\n"
@@ -111,15 +112,27 @@ class ConfigLoader:
         # Apply script arguments to the configuration
         selected_config = self.apply_script_args_to_config(
             selected_config)
+        
+        print(f"Flipping with the following configuration:\n{selected_config}\n")
 
         return selected_config
 
     def apply_script_args_to_config(self, config: FlipperConfig):
         if self.script_args.opaque_overlay:
-            config.blocking_overlay_opacity = [
-                1.0] * len(config.blocking_overlay_opacity)
+            config.blocking_overlay_opacity = [1.0] * len(config.blocking_overlay_opacity)
         config = self.apply_full_on_islands(config, self.script_args)
         config = self.scale_volume_levels(config, self.script_args.max_volume)
+        
+        # if args.flip_audio is False, set all audio states to 1
+        if not self.script_args.flip_audio:
+            config.audio_state = [1] * len(config.audio_state)
+            config.volume_level = [self.script_args.max_volume] * len(config.volume_level)
+        
+        # if args.flip_video is False, set all video states to 1
+        if not self.script_args.flip_video:
+            config.video_state = [1] * len(config.video_state)
+            config.blocking_overlay_opacity = [
+                0.01] * len(config.blocking_overlay_opacity)
         return config
 
     def apply_full_on_islands(self, config: FlipperConfig, args: FlipperScriptArgs):
@@ -208,6 +221,8 @@ class AudioVideoFlipper:
         self.root.withdraw()
         self.open_flipper_window()  # Ensure the flipper window is created before proceeding
         self.run_flipping()
+        
+        print(self.args)
 
     def stop_flipping(self):
         self.set_system_volume(self.args.max_volume)
@@ -306,30 +321,30 @@ class AudioVideoFlipper:
         self.flipper_window.bind("<Button-1>", self.confirm_exit)
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    # Load configurations
-    args = FlipperScriptArgs(audio_full_on_chance=10, video_full_on_chance=10,
-                             max_volume=1.0, cognitive_load=0.5, session_length=60, flip_audio=True, flip_video=True, opaque_overlay=False, black_overlay=False)
-    config_loader = ConfigLoader('configurations.json', script_args=args)
+#     # Load configurations
+#     args = FlipperScriptArgs(audio_full_on_chance=10, video_full_on_chance=10,
+#                              max_volume=1.0, cognitive_load=0.5, session_length=60, flip_audio=True, flip_video=True, opaque_overlay=False, black_overlay=False)
+#     config_loader = ConfigLoader('configurations.json', script_args=args)
 
-    # Create the Tkinter application
-    root = Tk()
-    root.title('Audio-Video Flipper')
-    root.configure(bg=BG_COLOR)
+#     # Create the Tkinter application
+#     root = Tk()
+#     root.title('Audio-Video Flipper')
+#     root.configure(bg=BG_COLOR)
 
-    # Create the main frame
-    main_frame = Frame(root, bg=BG_COLOR)
-    main_frame.pack(padx=20, pady=20)
+#     # Create the main frame
+#     main_frame = Frame(root, bg=BG_COLOR)
+#     main_frame.pack(padx=20, pady=20)
 
-    # Initialize AudioVideoFlipper class
-    flipper = AudioVideoFlipper(
-        root, BG_COLOR, BUTTON_FILL, config_loader, args)
+#     # Initialize AudioVideoFlipper class
+#     flipper = AudioVideoFlipper(
+#         root, BG_COLOR, BUTTON_FILL, config_loader, args)
 
-    # Create the Start/Stop Flipper button
-    start_button = Button(main_frame, text="Start/Stop Flipping",
-                          bg=BUTTON_FILL, command=flipper.toggle_flipping)
-    start_button.pack(pady=10)
+#     # Create the Start/Stop Flipper button
+#     start_button = Button(main_frame, text="Start/Stop Flipping",
+#                           bg=BUTTON_FILL, command=flipper.toggle_flipping)
+#     start_button.pack(pady=10)
 
-    # Run the application
-    root.mainloop()
+#     # Run the application
+#     root.mainloop()
