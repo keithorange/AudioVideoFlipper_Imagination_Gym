@@ -172,39 +172,27 @@ class AudioVideoFlipper:
         self.flipper_window = None
         self.running = False
         self.args = args
-
-    def confirm_exit(self, event=None):
-        # Temporarily disable the topmost attribute to ensure the messagebox is accessible
-        self.flipper_window.attributes("-topmost", False)
-
-        response = messagebox.askyesno("Stop Flipper", "Do you wish to stop the audio-video flipper?")
-
+        self.current_image_label = None  # Add this line to keep track of the current image label
+    def confirm_exit(self, event):
+        response = messagebox.askyesno(
+            "Stop Flipper", "Do you wish to stop the audio-video flipper?")
         if response:
             self.stop_flipping()
-        else:
-            # Re-enable the topmost attribute if the user cancels the exit
-            self.flipper_window.attributes("-topmost", True)
 
     def set_system_volume(self, volume):
-        # volume is between 0.0 and 100.0
-        
+        # volume is 0.0 to 1.0
         system_name = platform.system()
         if system_name == "Windows":
-            # For Windows, using nircmd.exe, scale volume from 0-100 to 0-65535
-            volume_scaled = int((65535 * volume) / 100)
-            subprocess.call(["nircmd.exe", "setsysvolume", str(volume_scaled)])
-            
+            subprocess.call(
+                ["nircmd.exe", "setsysvolume", str(volume)])
         elif system_name == "Darwin":  # macOS
-            # For macOS, volume can be set directly in the 0-100 range
-            subprocess.call(["osascript", "-e", f"set volume output volume {volume}"])
-            
+            subprocess.call(
+                ["osascript", "-e", f"set volume output volume {volume}"])
         elif system_name == "Linux":
-            # For Linux, the amixer command also expects volume in the 0-100 range
-            subprocess.call(["amixer", "-D", "pulse", "sset", "Master", f"{volume}%"])
-            
+            subprocess.call(
+                ["amixer", "-D", "pulse", "sset", "Master", f"{volume}%"])
         else:
             print("Unsupported operating system for volume control")
-
 
     def toggle_flipping(self):
         if self.running:
@@ -253,16 +241,16 @@ class AudioVideoFlipper:
         # Set system volume and transparency for the current configuration
         self.set_system_volume(volume)
         self.set_transparency(opacity)
-
-        # Update the image for each configuration
-        self.update_image()
+        
+        # if transparent, update the image
+        if opacity < 0.01:
+            self.update_image()
 
         # Increment index for next configuration in the set
         self.current_index += 1
 
         # Schedule the next run
         self.root.after(int(hold_length * 1000), self.run_flipping)
-
 
     def update_image(self):
         screen_width = self.root.winfo_screenwidth()
@@ -276,21 +264,26 @@ class AudioVideoFlipper:
             selected_image = random.choice(
                 os.listdir('images/blocking_images'))
             cv_image = cv2.imread(f'images/blocking_images/{selected_image}')
-            cv_image = apply_random_effects_cv(cv_image)
+            cv_image = apply_random_effects_cv(cv_image ,num_effects=random.randint(4,10))
             pil_image = Image.fromarray(
                 cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
             pil_image = pil_image.resize(
                 (screen_width, screen_height), Image.Resampling.LANCZOS)
 
         photo_image = ImageTk.PhotoImage(pil_image)
-        label = tk.Label(self.flipper_window, image=photo_image)
-        label.image = photo_image  # Keep a reference
-        label.pack(fill='both', expand=True)
+
+        if self.current_image_label is not None:
+            self.current_image_label.destroy()  # Remove the previous image label
+
+        # Create a new label for the new image
+        self.current_image_label = tk.Label(
+            self.flipper_window, image=photo_image)
+        self.current_image_label.image = photo_image  # Keep a reference
+        self.current_image_label.pack(fill='both', expand=True)
 
     def set_transparency(self, opacity):
-        # Ensure opacity is never exactly 0 to prevent click-through
-        safe_opacity = max(0.01, opacity)  # Using 0.01 as a minimum opacity
-        self.flipper_window.attributes("-alpha", safe_opacity if not self.args.opaque_overlay else 1.0)
+        self.flipper_window.attributes(
+            "-alpha", opacity if not self.args.opaque_overlay else 1.0)
 
     def open_flipper_window(self):
         if self.flipper_window:
@@ -299,21 +292,19 @@ class AudioVideoFlipper:
         self.root.attributes("-alpha", 1)
 
         self.flipper_window = Toplevel(self.root)
-        # Uncomment or adjust the following lines as needed for your application
         self.flipper_window.overrideredirect(True)
         self.flipper_window.attributes("-topmost", True)
-
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
         self.flipper_window.geometry(f"{screen_width}x{screen_height}+0+0")
 
         self.update_image()
-
-        # Set initial transparency
-        self.initial_opacity = 0.88  # Adjust as needed
+        # Assuming initial_opacity is defined elsewhere
+        self.initial_opacity = 0.88
         self.set_transparency(self.initial_opacity)
 
         self.flipper_window.bind("<Button-1>", self.confirm_exit)
+
 
 if __name__ == '__main__':
 
