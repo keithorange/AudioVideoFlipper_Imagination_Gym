@@ -186,12 +186,19 @@ class AudioVideoFlipper:
         self.running = False
         self.args = args
         self.current_image_label = None  # Add this line to keep track of the current image label
+    
     def confirm_exit(self, event):
-        response = messagebox.askyesno(
-            "Stop Flipper", "Do you wish to stop the audio-video flipper?")
+        # Temporarily remove the "always on top" attribute
+        self.flipper_window.attributes("-topmost", False)
+        
+        response = messagebox.askyesno("Stop Flipper", "Do you wish to stop the audio-video flipper?")
+        
         if response:
             self.stop_flipping()
-
+        else:
+            # Restore the "always on top" attribute if the user decides not to stop
+            self.flipper_window.attributes("-topmost", True)
+            
     def set_system_volume(self, volume):
         # volume is 0.0 to 1.0
         system_name = platform.system()
