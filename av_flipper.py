@@ -187,18 +187,19 @@ class AudioVideoFlipper:
         self.args = args
         self.current_image_label = None  # Add this line to keep track of the current image label
     
-    def confirm_exit(self, event):
+    def confirm_exit(self, event=None):
         # Temporarily remove the "always on top" attribute
         self.flipper_window.attributes("-topmost", False)
         
+        # Show the confirmation dialog
         response = messagebox.askyesno("Stop Flipper", "Do you wish to stop the audio-video flipper?")
         
         if response:
             self.stop_flipping()
         else:
-            # Restore the "always on top" attribute if the user decides not to stop
+            # If the user decides not to stop, make the window "always on top" again
             self.flipper_window.attributes("-topmost", True)
-            
+
     def set_system_volume(self, volume):
         # volume is 0.0 to 1.0
         system_name = platform.system()
@@ -290,7 +291,7 @@ class AudioVideoFlipper:
             pil_image = Image.fromarray(
                 cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB))
             pil_image = pil_image.resize(
-                (screen_width, screen_height), Image.Resampling.LANCZOS)
+                (screen_width, screen_height), Image.LANCZOS)
 
         photo_image = ImageTk.PhotoImage(pil_image)
 
