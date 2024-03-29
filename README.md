@@ -2,11 +2,11 @@
 
 
 ## Installation Instructions
-1. Download the repository from GitHub or clone it using `git clone https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`.
-2. Unzip the folder (if downloaded as a ZIP file).
-3. Navigate to the project directory in the terminal `cd AudioVideoFlipper_Imagination_Gym` or file explorer.
-4. Install the required dependencies with `pip install -r requirements.txt`.
-5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`).
+1. Download the repository from GitHub or clone it using `git clone https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`
+2. Unzip the folder (if downloaded as a ZIP file)
+3. Navigate to the project directory in the terminal `cd AudioVideoFlipper_Imagination_Gym` or file explorer
+4. Install the required dependencies with `pip install -r requirements.txt`
+5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`)
 
 
 ## Overview
