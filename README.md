@@ -1,5 +1,14 @@
 # Audio-Video Flipper: Cognitive and Sensory Enhancement Platform
 
+
+## Installation Instructions
+1. Download the repository from GitHub or clone it using `git clone https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`.
+2. Unzip the folder (if downloaded as a ZIP file).
+3. Navigate to the project directory in the terminal `cd AudioVideoFlipper_Imagination_Gym` or file explorer.
+4. Install the required dependencies with `pip install -r requirements.txt`.
+5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`).
+
+
 ## Overview
 
 The Audio-Video Flipper is a cutting-edge cognitive training tool designed to enhance auditory and visual faculties alongside improving key cognitive functions such as memory, focus, attention, and sensory processing. This platform offers a unique method for engaging with media, turning passive watching into an active cognitive exercise.
@@ -30,13 +39,6 @@ The tool integrates auditory and visual stimuli, which users interact with, chal
 
 ### Engaging with Media
 - Utilize the tool while watching favorite movies, TV shows, or scenes. The flipper adds a cognitive layer to the viewing experience, enhancing imagination and sensory processing as the mind fills in the gaps created by the altering stimuli.
-
-## Installation Instructions
-1. Download the repository from GitHub or clone it using `git clone https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`.
-2. Unzip the folder (if downloaded as a ZIP file).
-3. Navigate to the project directory in the terminal `cd AudioVideoFlipper_Imagination_Gym` or file explorer.
-4. Install the required dependencies with `pip install -r requirements.txt`.
-5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`).
 
 ## Cognitive Benefits
 - **Imagination and Creativity:** Enhances the ability to visualize and create, benefiting creative pursuits and problem-solving.
