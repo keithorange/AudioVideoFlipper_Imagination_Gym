@@ -1,3 +1,6 @@
 opencv-python
 pydantic
 numpy
+tkinter
+requests
+Pillow
