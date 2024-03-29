@@ -32,7 +32,7 @@ The tool integrates auditory and visual stimuli, which users interact with, chal
 - Utilize the tool while watching favorite movies, TV shows, or scenes. The flipper adds a cognitive layer to the viewing experience, enhancing imagination and sensory processing as the mind fills in the gaps created by the altering stimuli.
 
 ## Installation Instructions
-1. Download the repository from GitHub or clone it using `git clone github.com/keithorange/audio_video_flipper`.
+1. Download the repository from GitHub or clone it using `https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`.
 2. Unzip the folder (if downloaded as a ZIP file).
 3. Navigate to the project directory in the terminal or command prompt.
 4. Install the required dependencies with `pip install -r requirements.txt`.
