@@ -121,16 +121,16 @@ advanced_widgets.append(overlay_frame)
 # Variable to hold the current overlay option
 overlay_option_var = tk.StringVar(value="Random Image")
 
-# Radio buttons for overlay options
-overlay_rb1 = tk.Radiobutton(overlay_frame, text='Opaque Overlay', variable=overlay_option_var, value='Opaque Overlay',
-                             bg=BG_COLOR, fg=FG_COLOR, selectcolor=BG_COLOR, activebackground=ACTIVE_BG_COLOR, activeforeground=FG_COLOR)
+# # Radio buttons for overlay options
+# overlay_rb1 = tk.Radiobutton(overlay_frame, text='Opaque Overlay', variable=overlay_option_var, value='Opaque Overlay',
+#                              bg=BG_COLOR, fg=FG_COLOR, selectcolor=BG_COLOR, activebackground=ACTIVE_BG_COLOR, activeforeground=FG_COLOR)
 overlay_rb2 = tk.Radiobutton(overlay_frame, text='Black Overlay', variable=overlay_option_var, value='Black Overlay',
                              bg=BG_COLOR, fg=FG_COLOR, selectcolor=BG_COLOR, activebackground=ACTIVE_BG_COLOR, activeforeground=FG_COLOR)
 overlay_rb3 = tk.Radiobutton(overlay_frame, text='Random Image', variable=overlay_option_var, value='Random Image',
                              bg=BG_COLOR, fg=FG_COLOR, selectcolor=BG_COLOR, activebackground=ACTIVE_BG_COLOR, activeforeground=FG_COLOR)
 
-# Packing the radio buttons
-overlay_rb1.pack(anchor='w')
+# # Packing the radio buttons
+# overlay_rb1.pack(anchor='w')
 overlay_rb2.pack(anchor='w')
 overlay_rb3.pack(anchor='w')
 

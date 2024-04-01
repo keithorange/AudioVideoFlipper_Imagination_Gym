@@ -4,14 +4,13 @@ from tkinter import Toplevel, PhotoImage, Button, Label, Scale, Frame, Tk, messa
 import tkinter as tk
 import json
 import os
-import random
 from typing import List
 from PIL import Image, ImageTk
 import cv2
 import numpy as np
 from pydantic import BaseModel
 from edit_image import apply_random_effects_cv
-
+import random
 # Constants for styling
 BG_COLOR = '#9A48D0'
 FG_COLOR = '#FFFFFF'
@@ -39,7 +38,7 @@ class FlipperScriptArgs:
                 f"⏱️ Session Length: {self.session_length}\n"
                 f"🔄 Flip Audio: {self.flip_audio}\n"
                 f"🔄 Flip Video: {self.flip_video}\n"
-                f"🌫️ Opaque Overlay: {self.opaque_overlay}\n"
+                #f"🌫️ Opaque Overlay: {self.opaque_overlay}\n"
                 f"⬛ Black Overlay: {self.black_overlay}")
 
 
