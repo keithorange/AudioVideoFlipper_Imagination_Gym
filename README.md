@@ -1,5 +1,6 @@
 # Audio-Video Flipper: Cognitive and Sensory Enhancement Platform
 
+![ui](ui_help.png)
 
 ## Installation Instructions
 1. Download the repository from GitHub or clone it using `git clone https://github.com/keithorange/AudioVideoFlipper_Imagination_Gym.git`
@@ -68,4 +69,4 @@ The Audio-Video Flipper offers an innovative approach to cognitive training, lev
 5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`)
 
 
-![ui](ui_help.png)
+
