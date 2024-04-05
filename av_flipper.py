@@ -204,7 +204,7 @@ class AudioVideoFlipper:
         system_name = platform.system()
         if system_name == "Windows":
             subprocess.call(
-                ["nircmd.exe", "setsysvolume", str(volume)])
+                ["nircmd.exe", "setsysvolume", str(volume/100 * 65535)])
         elif system_name == "Darwin":  # macOS
             subprocess.call(
                 ["osascript", "-e", f"set volume output volume {volume}"])
