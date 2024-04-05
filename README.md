@@ -68,5 +68,7 @@ The Audio-Video Flipper offers an innovative approach to cognitive training, lev
 4. Install the required dependencies with `pip install -r requirements.txt`
 5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`)
 
+![ui](ui_help_2.png)
+
 
 
