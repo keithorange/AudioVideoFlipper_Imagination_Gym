@@ -10,6 +10,32 @@
 5. Run the application by executing the main script (e.g., `python start_flipper_ui.py`)
 
 
+## QuickStart
+
+**Quick Start Guide for Audio-Video Flipper**
+
+**Step 1:** Open the Audio-Video Flipper application on your device.
+
+**Step 2:** Customize Your Experience:
+- **Difficulty Slider**: This controls the level of cognitive challenge.
+  - Slide to 0% for a normal movie-watching experience.
+  - Slide to 100% to remove the video, enhancing your focus and imagination.
+
+- **Overlay Options**: Choose how you want to adjust the visual aspect.
+  - **Black Overlay**: Simplifies the screen to minimize distractions.
+  - **Random Image**: Introduces unexpected visual elements (note the flash warning).
+
+- **Audition and Visualization Sliders**: Adjust these to set the complexity of the auditory and visual stimuli.
+  - Slide left for a less challenging session.
+  - Slide right for a more intense cognitive workout.
+
+- **Max Volume**: Control the highest volume level for the session.
+  - Be cautious and avoid setting the volume too high to prevent discomfort (mind the sound warning).
+
+**Step 3:** Press the 'Start' button to begin your cognitive enhancement session with your selected settings.
+
+**Remember** to take regular breaks and adjust the settings to stay within a comfortable and safe challenge level. Enjoy your enhanced media experience!
+
 ## Overview
 
 The Audio-Video Flipper is a cutting-edge cognitive training tool designed to enhance auditory and visual faculties alongside improving key cognitive functions such as memory, focus, attention, and sensory processing. This platform offers a unique method for engaging with media, turning passive watching into an active cognitive exercise.
