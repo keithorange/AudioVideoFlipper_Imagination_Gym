@@ -105,7 +105,13 @@ class ConfigLoader:
         args = self.script_args
         cognitive_load = args.cognitive_load
         selected_config = gaussian_weighted_sampling(
-            self.configs, 'cognitive_load', target_x=cognitive_load, n=1, std_dev=1.0)[0]
+            self.configs, 'cognitive_load', target_x=cognitive_load, n=1, std_dev=3.0)[0]
+        
+        print(f"""
+              cognitive_load: {cognitive_load}
+              selected_config_cognitive_load: {selected_config.cognitive_load}
+              std_dev: 5.0
+              """)
 
         # Here selected_config is already a FlipperConfig object
         # Apply script arguments to the configuration
